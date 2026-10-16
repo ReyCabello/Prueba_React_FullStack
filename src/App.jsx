@@ -4,6 +4,7 @@ import { Header } from './components/organisms/Header'
 import { Footer } from './components/organisms/Footer'
 import { Nosotros } from './pages/Nosotros'
 import { Noticias } from './pages/Noticias'
+import { Contacto } from './pages/Contacto'
 
 function App() {
 
@@ -11,7 +12,7 @@ function App() {
     <>
       <Header />
 
-      <Noticias />
+      <Contacto />
 
       <Footer />
     </>
