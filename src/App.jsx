@@ -2,6 +2,7 @@
 import './App.css'
 import { Header } from './components/organisms/Header'
 import { Footer } from './components/organisms/Footer'
+import { Nosotros } from './pages/Nosotros'
 
 function App() {
 
@@ -9,11 +10,7 @@ function App() {
     <>
       <Header />
 
-      <main className='container py-5'>
-        <h2 className='text-center'>
-          Bienvenido al Caldero de la Abundancia
-        </h2>
-      </main>
+      <Nosotros />
 
       <Footer />
     </>
