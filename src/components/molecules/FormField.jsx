@@ -9,7 +9,7 @@ export function FormField({ label, required, id, className = '', ...inputProps }
           {label} {required && <span className="required-star">*</span>}
         </Label>
       )}
-      <Input id={id} {...inputProps} />
+      <Input id={id} required={required} className="form-control w-100" {...inputProps} />
     </div>
   );
 }
