@@ -1,4 +1,4 @@
-function Boton({texto, onClick, tipo = "button", variante = "primary"}) {
+function Button({texto, onClick, tipo = "button", variante = "primary"}) {
     return (
         <button
             type={tipo}
@@ -10,4 +10,4 @@ function Boton({texto, onClick, tipo = "button", variante = "primary"}) {
     )
 }
 
-export default Boton
+export default Button

@@ -1,8 +1,11 @@
 import { IdentidadTienda } from "../molecules/IdentidadTienda";
 import { MenuNavegacion } from "../molecules/MenuNavegacion";
 import { IconButton} from "../atoms/IconoButton"
+import { useNavigate } from 'react-router-dom';
+
 
 export function Header() {
+    const navegar = useNavigate();
     return (
         <header
             className="container-fluid py-3"
@@ -19,6 +22,7 @@ export function Header() {
 
                         <div className="mt-3 mt-md-0 ms-md-4">
                             <IconButton
+                                onClick={() => navegar('/carrito')}
                                 className="text-white fs-4"
                                 aria-label="Carrito de compras"
                                 style={{
