@@ -2,3 +2,28 @@
   width: 100%;
   min-height: 100vh;
 }
+
+/* Botón de cerrar sesión del encabezado */
+
+.header-logout {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 400;
+  line-height: inherit;
+  color: #fff;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.header-logout:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.header-logout:focus-visible {
+  outline: 2px solid #d8b34b;
+  outline-offset: 3px;
+}

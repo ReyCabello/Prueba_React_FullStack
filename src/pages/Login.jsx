@@ -1,8 +1,10 @@
-
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { FormField } from '../components/molecules/FormField'
 import Boton from '../components/atoms/Button'
 import './Login.css'
+import { useNavigate } from 'react-router-dom'
+import { iniciarSesion } from '../utils/usuariosDemo'
 
 const dominiosPermitidos = [
     '@duoc.cl',
@@ -51,30 +53,43 @@ function validarContrasena(contrasena) {
 }
 
 export function Login() {
+    const navigate = useNavigate()
     const [correo, setCorreo] = useState('')
     const [contrasena, setContrasena] = useState('')
     const [errores, setErrores] = useState({})
     const [mensaje, setMensaje] = useState('')
 
+
     const handleSubmit = (event) => {
-        event.preventDefault()
+    event.preventDefault()
 
     const nuevosErrores = {
         correo: validarCorreo(correo),
         contrasena: validarContrasena(contrasena),
-        }
-
-        setErrores(nuevosErrores)
-        setMensaje('')
-
-        if (nuevosErrores.correo || nuevosErrores.contrasena) {
-        return
-        }
-
-        setMensaje(
-        '¡Datos válidos! El inicio de sesión todavía no está conectado al servidor.',
-        )
     }
+
+    setErrores(nuevosErrores)
+    setMensaje('')
+
+    if (nuevosErrores.correo || nuevosErrores.contrasena) {
+        return
+    }
+
+    const resultado = iniciarSesion(correo, contrasena)
+
+    if (!resultado.ok) {
+    setMensaje(resultado.mensaje)
+    return
+    }
+
+    sessionStorage.setItem(
+    'usuarioActual',
+    JSON.stringify(resultado.usuario)
+    )
+
+        navigate('/productos')
+    }
+
 
     return (
         <main className="login-page container-fluid py-5">
@@ -172,9 +187,9 @@ export function Login() {
                 </div>
 
                 <p className="text-center mb-0">
-                <a className="login-link" href="#registro">
+                <Link className="login-link" to="/registro">
                     Crear una cuenta
-                </a>
+                </Link>
                 </p>
             </section>
             </div>
