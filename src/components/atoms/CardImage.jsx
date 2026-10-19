@@ -1,19 +1,12 @@
-export function CardImage({ 
-  src, 
-  alt = 'Imagen', 
-  fallbackSrc = '/assets/placeholder.png', // Imagen por defecto genérica
-  className = '', 
-  ...props 
-}) {
+// src/components/atoms/CardImage.jsx
+export function CardImage({ src, alt, className = '', onClick }) {
   return (
-    <img
-      src={src || fallbackSrc}
-      alt={alt}
-      className={`card-image ${className}`.trim()}
-      onError={(e) => {
-        if (e.target.src !== fallbackSrc) e.target.src = fallbackSrc;
-      }}
-      {...props}
+    <img 
+      src={src} 
+      alt={alt} 
+      className={`rounded border border-secondary ${className}`} 
+      onClick={onClick}
+      style={{ width: '120px', height: '170px', objectFit: 'contain', cursor: 'pointer' }} 
     />
   );
 }
