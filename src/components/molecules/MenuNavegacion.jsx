@@ -11,9 +11,6 @@ export function MenuNavegacion({ estaAutenticado, onCerrarSesion }) {
           <Enlace texto="Productos" destino="/productos" className="text-white text-decoration-none" />
         </div>
         <div className="mx-3">
-          <Enlace texto="Inventario" destino="/inventario" className="text-white text-decoration-none text-warning fw-bold" />
-        </div>
-        <div className="mx-3">
           <Enlace texto="Nosotros" destino="/nosotros" className="text-white text-decoration-none" />
         </div>
         <div className="mx-3">
@@ -22,6 +19,15 @@ export function MenuNavegacion({ estaAutenticado, onCerrarSesion }) {
         <div className="mx-3">
           <Enlace texto="Contacto" destino="/contacto" className="text-white text-decoration-none" />
         </div>
+        {estaAutenticado && (
+          <div className="mx-3">
+            <Enlace 
+              texto="Inventario" 
+              destino="/inventario" 
+              className="text-warning fw-bold text-decoration-none" 
+            />
+          </div>
+        )}
         <div className="mx-3">
           {estaAutenticado ? (
             <Enlace 
