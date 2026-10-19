@@ -12,12 +12,36 @@ export function Productos() {
   useEffect(() => {
     const cargarProductos = () => {
       const inventarioGuardado = localStorage.getItem('cartas_inventario');
-      if (inventarioGuardado) {
-        setListaProductos(JSON.parse(inventarioGuardado));
-      } else {
-        setListaProductos(products);
-        localStorage.setItem('cartas_inventario', JSON.stringify(products));
-      }
+      
+if (inventarioGuardado) {
+  const inventario = JSON.parse(inventarioGuardado);
+
+  if (localStorage.getItem('stock_inicial_actualizado') !== 'si') {
+    const inventarioActualizado = inventario.map((producto) => {
+      const esProductoInicial = products.some(
+        (inicial) => inicial.id === producto.id &&
+          inicial.name === producto.name
+        );
+
+        if (esProductoInicial) {
+          return { ...producto, stock: 3 };
+        }
+
+        return producto;
+      });
+
+      localStorage.setItem('cartas_inventario', JSON.stringify(inventarioActualizado));
+      localStorage.setItem('stock_inicial_actualizado', 'si');
+      setListaProductos(inventarioActualizado);
+    } else {
+      setListaProductos(inventario);
+    }
+  } else {
+    setListaProductos(products);
+    localStorage.setItem('cartas_inventario', JSON.stringify(products));
+    localStorage.setItem('stock_inicial_actualizado', 'si');
+  }
+
     };
 
     cargarProductos();
