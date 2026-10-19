@@ -1,5 +1,6 @@
 import products from '../../data/Products'
 import { ProductCard } from '../molecules/ProductCard'
+import '../../pages/Productos.css'
 
 export function ProductosDestacados() {
 
