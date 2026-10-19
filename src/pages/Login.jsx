@@ -5,6 +5,7 @@ import Boton from '../components/atoms/Button'
 import { iniciarSesion } from '../utils/usuariosDemo'
 import './Login.css'
 import { useNavigate } from 'react-router-dom';
+import logoMitos from '../assets/logo-mitos.png';
 
 const dominiosPermitidos = [
     '@duoc.cl',
@@ -102,7 +103,7 @@ export function Login({ onLogin }) {
             <section className="login-card">
                 <div className="login-logo">
                 <img
-                    src="/src/assets/logo-mitos.png"
+                    src={logoMitos}
                     alt="Mitos y Leyendas"
                     className="login-logo-img"
                 />

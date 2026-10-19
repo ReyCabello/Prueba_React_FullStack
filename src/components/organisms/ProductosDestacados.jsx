@@ -1,8 +1,22 @@
 import products from '../../data/Products'
 import { ProductCard } from '../molecules/ProductCard'
 import '../../pages/Productos.css'
+import { useState, useEffect } from 'react'
+
 
 export function ProductosDestacados() {
+
+    const [listaProductos, setListaProductos] = useState([])
+
+    useEffect(() => {
+        const inventarioGuardado = localStorage.getItem('cartas_inventario')
+        if (inventarioGuardado) {
+            setListaProductos(JSON.parse(inventarioGuardado))
+        } else {
+            localStorage.setItem('cartas_inventario', JSON.stringify(productsIniciales))
+            setListaProductos(productsIniciales)
+        }
+    }, [])
 
     const agregarAlCarrito = (producto) => {
         const carritoGuardado = JSON.parse(
@@ -27,6 +41,9 @@ export function ProductosDestacados() {
             JSON.stringify(carritoGuardado)
         )
     }
+
+    if (listaProductos.length === 0) return null
+
     return (
         <section className="productos-page container py-5">
             <h2 className="text-warning text-center mb-4">
@@ -34,35 +51,23 @@ export function ProductosDestacados() {
             </h2>
 
             <div className="row g-4">
-                <div className="col-12 col-md-4">
-                    <ProductCard
-                        image={products[0].image}
-                        name={products[0].name}
-                        description={products[0].description}
-                        price={products[0].price}
-                        onAdd={() => agregarAlCarrito(products[0])}
-                    />
-                </div>
+                {[0, 1, 2].map((index) => {
+                    const producto = listaProductos[index]
+                    if (!producto) return null
 
-                <div className="col-12 col-md-4">
-                    <ProductCard
-                        image={products[1].image}
-                        name={products[1].name}
-                        description={products[1].description}
-                        price={products[1].price}
-                        onAdd={() => agregarAlCarrito(products[1])}
-                    />
-                </div>
-
-                <div className="col-12 col-md-4">
-                    <ProductCard
-                        image={products[2].image}
-                        name={products[2].name}
-                        description={products[2].description}
-                        price={products[2].price}
-                        onAdd={() => agregarAlCarrito(products[2])}
-                    />
-                </div>
+                    return (
+                        <div key={producto.id || index} className="col-12 col-md-4">
+                            <ProductCard
+                                image={producto.image}
+                                name={producto.name}
+                                description={producto.description}
+                                price={producto.price}
+                                stock={producto.stock}
+                                onAdd={() => agregarAlCarrito(producto)}
+                            />
+                        </div>
+                    )
+                })}
             </div>
         </section>
     )
