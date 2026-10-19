@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card } from '../atoms/Card';
 import { CardImage } from '../atoms/CardImage';
@@ -54,14 +53,16 @@ export function ProductCard({
         <p className={`product-card__stock small my-1 ${stockNum > 0 ? 'text-muted' : 'text-danger fw-bold'}`}>
           {stockNum > 0 ? `Stock: ${stockNum}` : 'Agotado'}
         </p>
-
-        <Button
-          texto={Number(stock) <= 0 ? "Agotado" : "Agregar"}
-          onClick={onAdd}
-          tipo="button"
-          variante={Number(stock) <= 0 ? "secondary" : "warning"}
-          disabled={Number(stock) <= 0}
-        />
+          
+        {onAdd && (
+          <Button
+            texto={Number(stock) <= 0 ? "Agotado" : "Agregar"}
+            onClick={onAdd}
+            tipo="button"
+            variante={Number(stock) <= 0 ? "secondary" : "warning"}
+            disabled={Number(stock) <= 0}
+          />
+        )}
       </Card>
 
       {mostrarDetalle && (
