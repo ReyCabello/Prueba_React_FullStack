@@ -12,6 +12,7 @@ import { Inventario } from './pages/Inventario';
 import { Nosotros } from './pages/Nosotros.jsx';
 import { Noticias } from './pages/Noticias.jsx';
 import { Contacto } from './pages/Contacto.jsx';
+import { Inicio } from './pages/Inicio';
 import { ProtectedRoute } from './components/ProtectedRoute.jsx';
 
 export default function App() {
@@ -35,7 +36,7 @@ export default function App() {
 
       <main>
         <Routes>
-          <Route path="/" element={<div className="container text-white py-4">Página de Inicio</div>} />
+          <Route path="/" element={<Inicio />} />
           <Route path="/productos" element={<Productos />} />
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/registro" element={<Registro />} />
