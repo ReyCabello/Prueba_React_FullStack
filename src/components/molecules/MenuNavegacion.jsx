@@ -1,6 +1,12 @@
 import { Enlace } from '../atoms/Enlace';
 
 export function MenuNavegacion({ estaAutenticado, onCerrarSesion }) {
+
+  const usuarioSesion = JSON.parse(sessionStorage.getItem('usuarioActual') || '{}');
+  const haySesionActiva = Boolean(estaAutenticado || usuarioSesion.correo);
+
+  const esAdmin = usuarioSesion.correo === 'admin@gmail.com';
+
   return (
     <nav aria-label="Navegación principal">
       <div className="d-flex flex-wrap justify-content-center align-items-center">
@@ -19,7 +25,7 @@ export function MenuNavegacion({ estaAutenticado, onCerrarSesion }) {
         <div className="mx-3">
           <Enlace texto="Contacto" destino="/contacto" className="text-white text-decoration-none" />
         </div>
-        {estaAutenticado && (
+        {esAdmin && (
           <div className="mx-3">
             <Enlace 
               texto="Inventario" 
@@ -29,7 +35,7 @@ export function MenuNavegacion({ estaAutenticado, onCerrarSesion }) {
           </div>
         )}
         <div className="mx-3">
-          {estaAutenticado ? (
+          {estaAutenticado || sessionStorage.getItem('usuarioActual') ? (
             <Enlace 
               texto="Cerrar Sesión" 
               destino="/login" 

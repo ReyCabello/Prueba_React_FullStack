@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FormField } from '../components/molecules/FormField'
 import Boton from '../components/atoms/Button'
+import { iniciarSesion } from '../utils/usuariosDemo'
 import './Login.css'
 import { useNavigate } from 'react-router-dom';
 
@@ -74,34 +75,23 @@ export function Login({ onLogin }) {
         return
         }
 
-        if (correo === 'admin@gmail.com' && contrasena === 'admin123') { 
+        if (correo === 'admin@gmail.com' && contrasena === 'admin123') {
+            sessionStorage.setItem('usuarioActual', JSON.stringify({ correo, rol: 'admin' }));
             if (onLogin) onLogin(true);
-            navigate('/inventario');
-        } else {
-            if (onLogin) onLogin(false);
-            navigate('/');
+            navigate('/inventario')
+            return
         }
 
-    setErrores(nuevosErrores)
-    setMensaje('')
-
-    if (nuevosErrores.correo || nuevosErrores.contrasena) {
-        return
-    }
-
-    const resultado = iniciarSesion(correo, contrasena)
-
-    if (!resultado.ok) {
-    setMensaje(resultado.mensaje)
-    return
-    }
-
-    sessionStorage.setItem(
-    'usuarioActual',
-    JSON.stringify(resultado.usuario)
-    )
-
-        navigate('/productos')
+        const resultado = iniciarSesion(correo, contrasena)
+        
+        if (resultado.ok) {
+          const usuarioSesion = { ...resultado.usuario, rol: 'usuario' }
+          sessionStorage.setItem('usuarioActual', JSON.stringify(usuarioSesion))
+          if (onLogin) onLogin(true)
+          navigate('/productos')
+        } else {
+          setMensaje(resultado.mensaje)
+        }
     }
 
 
