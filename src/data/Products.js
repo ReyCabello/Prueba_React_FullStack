@@ -6,6 +6,7 @@ export const products = [
         name: "Escila",
         description: "Carta de Escila de Mitos y Leyendas.",
         price: 50000,
+        stock: 3,
         image: "https://cartasmitos.cl/wp-content/uploads/2021/08/96-4.jpg"
     },
     {
@@ -13,6 +14,7 @@ export const products = [
         name: "El gran Zeus",
         description: "Carta de El gran Zeus de Mitos y Leyendas.",
         price: 20000,
+        stock: 3,
         image: "https://cartasmitos.cl/wp-content/uploads/2021/07/9-7.jpg"
     },
     {
@@ -20,6 +22,7 @@ export const products = [
         name: "Máscara de oro",
         description: "Carta Máscara de oro de Mitos y Leyendas.",
         price: 30000,
+        stock: 3,
         image: "https://cartasmitos.cl/wp-content/uploads/2021/08/278.jpg"
     },
     {
@@ -27,6 +30,7 @@ export const products = [
         name: "Atlas",
         description: "Carta Atlas de Mitos y Leyendas.",
         price: 12000,
+        stock: 3,
         image: "https://cartasmitos.cl/wp-content/uploads/2021/06/31-8-600x600.jpg"
     },
     
@@ -35,6 +39,7 @@ export const products = [
         name: "Hera",
         description: "Carta Hera de la colección Helénica.",
         price: 5000,
+        stock: 3,
         image: "https://cartasmitos.cl/wp-content/uploads/2021/06/5-7-600x600.jpg"
     },
     {
@@ -42,6 +47,7 @@ export const products = [
         name: "Poseidón",
         description: "Carta Poseidón de la colección Helénica.",
         price: 15000,
+        stock: 3,
         image: "https://cartasmitos.cl/wp-content/uploads/2021/06/6-8-600x600.jpg"
     },
     {
@@ -49,6 +55,7 @@ export const products = [
         name: "Hades",
         description: "Carta Hades de la colección Helénica.",
         price: 12000,
+        stock: 3,
         image: "https://cartasmitos.cl/wp-content/uploads/2021/06/7-7-600x600.jpg"
     },
     {
@@ -56,6 +63,7 @@ export const products = [
         name: "Apolo",
         description: "Carta Apolo de la colección Helénica.",
         price: 10000,
+        stock: 3,
         image: "https://cartasmitos.cl/wp-content/uploads/2021/06/8-8-300x300.jpg"
     }
 
