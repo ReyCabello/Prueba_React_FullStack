@@ -6,28 +6,32 @@ export const products = [
         name: "Escila",
         description: "Carta de Escila de Mitos y Leyendas.",
         price: 50000,
-        image: "https://cartasmitos.cl/wp-content/uploads/2021/08/96-4.jpg"
+        image: "https://cartasmitos.cl/wp-content/uploads/2021/08/96-4.jpg",
+        stock: 12
     },
     {
         id: 2,
         name: "El gran Zeus",
         description: "Carta de El gran Zeus de Mitos y Leyendas.",
         price: 20000,
-        image: "https://cartasmitos.cl/wp-content/uploads/2021/07/9-7.jpg"
+        image: "https://cartasmitos.cl/wp-content/uploads/2021/07/9-7.jpg",
+        stock: 3
     },
     {
         id: 3,
         name: "Máscara de oro",
         description: "Carta Máscara de oro de Mitos y Leyendas.",
         price: 30000,
-        image: "https://cartasmitos.cl/wp-content/uploads/2021/08/278.jpg"
+        image: "https://cartasmitos.cl/wp-content/uploads/2021/08/278.jpg",
+        stock: 6
     },
     {
         id: 4,
         name: "Atlas",
         description: "Carta Atlas de Mitos y Leyendas.",
         price: 12000,
-        image: "https://cartasmitos.cl/wp-content/uploads/2021/06/31-8-600x600.jpg"
+        image: "https://cartasmitos.cl/wp-content/uploads/2021/06/31-8-600x600.jpg",
+        stock: 1
     },
     
     {
@@ -35,28 +39,32 @@ export const products = [
         name: "Hera",
         description: "Carta Hera de la colección Helénica.",
         price: 5000,
-        image: "https://cartasmitos.cl/wp-content/uploads/2021/06/5-7-600x600.jpg"
+        image: "https://cartasmitos.cl/wp-content/uploads/2021/06/5-7-600x600.jpg",
+        stock: 0
     },
     {
         id: 6,
         name: "Poseidón",
         description: "Carta Poseidón de la colección Helénica.",
         price: 15000,
-        image: "https://cartasmitos.cl/wp-content/uploads/2021/06/6-8-600x600.jpg"
+        image: "https://cartasmitos.cl/wp-content/uploads/2021/06/6-8-600x600.jpg",
+        stock:4
     },
     {
         id: 7,
         name: "Hades",
         description: "Carta Hades de la colección Helénica.",
         price: 12000,
-        image: "https://cartasmitos.cl/wp-content/uploads/2021/06/7-7-600x600.jpg"
+        image: "https://cartasmitos.cl/wp-content/uploads/2021/06/7-7-600x600.jpg",
+        stock: 20
     },
     {
         id: 8,
         name: "Apolo",
         description: "Carta Apolo de la colección Helénica.",
         price: 10000,
-        image: "https://cartasmitos.cl/wp-content/uploads/2021/06/8-8-300x300.jpg"
+        image: "https://cartasmitos.cl/wp-content/uploads/2021/06/8-8-300x300.jpg",
+        stock: 12
     }
 
 ];

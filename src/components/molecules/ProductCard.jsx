@@ -16,6 +16,7 @@ export function ProductCard({
   className = ''
 }) {
   const [mostrarDetalle, setMostrarDetalle] = useState(false);
+  const stockNum = Number(stock) || 0;
 
   return (
     <>
@@ -49,6 +50,10 @@ export function ProductCard({
           amount={price}
           className="product-card__price"
         />
+
+        <p className={`product-card__stock small my-1 ${stockNum > 0 ? 'text-muted' : 'text-danger fw-bold'}`}>
+          {stockNum > 0 ? `Stock: ${stockNum}` : 'Agotado'}
+        </p>
 
         <Button
           texto={Number(stock) <= 0 ? "Agotado" : "Agregar"}
