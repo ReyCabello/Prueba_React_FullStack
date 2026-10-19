@@ -1,13 +1,13 @@
-function Button({texto, onClick, tipo = "button", variante = "primary"}) {
-    return (
-        <button
-            type={tipo}
-            className={`btn btn-${variante}`}
-            onClick={onClick}
-            >
-                {texto}
-            </button>
-    )
+function Boton({ children, texto, onClick, tipo = "button", variante = "primary" }) {
+  return (
+    <button
+      type={tipo}
+      className={`btn btn-${variante} w-100 fw-bold`}
+      onClick={onClick}
+    >
+      {children || texto}
+    </button>
+  );
 }
 
-export default Button
+export default Boton;

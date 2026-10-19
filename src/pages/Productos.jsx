@@ -1,34 +1,53 @@
-
 import { useState, useEffect } from 'react';
-import products from '../data/Products';
+import { products } from '../data/products';
 import { ProductCard } from '../components/molecules/ProductCard';
-import { CartSummaryCard } from '../components/molecules/TarjetaResumencarrito';
-import './Productos.css';
 
 export function Productos() {
-    const [carrito, setCarrito] = useState(() => {
-      try {
-        const carritoGuardado = localStorage.getItem('carrito');
-        return carritoGuardado ? JSON.parse(carritoGuardado) : [];
-      } catch {
-        return [];
-     }
-    });
+  const [listaProductos, setListaProductos] = useState([]);
+  const [carrito, setCarrito] = useState(() => {
+    const carritoGuardado = localStorage.getItem('carrito');
+    return carritoGuardado ? JSON.parse(carritoGuardado) : [];
+  });
 
-useEffect(() => {
-  localStorage.setItem('carrito', JSON.stringify(carrito));
-}, [carrito]);
+  useEffect(() => {
+    const cargarProductos = () => {
+      const inventarioGuardado = localStorage.getItem('cartas_inventario');
+      if (inventarioGuardado) {
+        setListaProductos(JSON.parse(inventarioGuardado));
+      } else {
+        setListaProductos(products);
+        localStorage.setItem('cartas_inventario', JSON.stringify(products));
+      }
+    };
+
+    cargarProductos();
+    window.addEventListener('storage', cargarProductos);
+    return () => window.removeEventListener('storage', cargarProductos);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+  }, [carrito]);
 
   const agregarAlCarrito = (producto) => {
+    const stockDisponible = Number(producto.stock) || 0;
+    if (stockDisponible <= 0) return;
+
     setCarrito((carritoActual) => {
       const existe = carritoActual.find(
-        (item) => item.id === producto.id
+        (item) => String(item.id) === String(producto.id)
       );
+      const cantidadEnCarrito = existe ? Number(existe.cantidad) || 0 : 0;
+
+      if (cantidadEnCarrito + 1 > stockDisponible) {
+        alert(`No puedes agregar más unidades. El stock máximo disponible es ${stockDisponible}.`);
+        return carritoActual;
+      }
 
       if (existe) {
         return carritoActual.map((item) =>
-          item.id === producto.id
-            ? { ...item, cantidad: item.cantidad + 1 }
+          String(item.id) === String(producto.id)
+            ? { ...item, cantidad: (Number(item.cantidad) || 0) + 1 }
             : item
         );
       }
@@ -37,41 +56,50 @@ useEffect(() => {
     });
   };
 
-  const totalItems = carrito.reduce(
-    (total, item) => total + item.cantidad,
-    0
-  );
+  const obtenerCantidadEnCarrito = (id) => {
+    const item = carrito.find((i) => String(i.id) === String(id));
+    return item ? Number(item.cantidad) || 0 : 0;
+  };
 
-  const totalPrice = carrito.reduce(
-    (total, item) => total + item.price * item.cantidad,
-    0
-  );
+
+  const totalItems = carrito.reduce((acc, item) => acc + (Number(item.cantidad) || 0), 0);
+  const totalPrecio = carrito.reduce((acc, item) => acc + (Number(item.price) * (Number(item.cantidad) || 0)), 0);
 
   return (
-    <main className="productos-page container py-5">
-      <h1 className="productos-page__titulo text-center">
-        Cartas Mitos y Leyendas
-      </h1>
-
-      <CartSummaryCard
-        totalItems={totalItems}
-        totalPrice={totalPrice}
-        className="mb-4"
-      />
-
-      <div className="row g-4">
-        {products.map((producto) => (
-          <div className="col-12 col-sm-6 col-lg-3" key={producto.id}>
-            <ProductCard
-              image={producto.image}
-              name={producto.name}
-              description={producto.description}
-              price={producto.price}
-              onAdd={() => agregarAlCarrito(producto)}
-            />
-          </div>
-        ))}
+    <div className="container my-4">
+      <div className="d-flex justify-content-between align-items-center mb-4 p-3 bg-dark text-white rounded border border-secondary shadow-sm">
+        <h2 className="text-warning m-0">Catálogo de Cartas</h2>
+        <div className="text-end">
+          <span className="badge bg-secondary me-2 fs-6">
+            Productos: {totalItems}
+          </span>
+          <span className="fs-5 fw-bold text-success">
+            Total: ${totalPrecio.toLocaleString('es-CL')}
+          </span>
+        </div>
       </div>
-    </main>
+      <div className="row g-4">
+        {listaProductos.map((producto) => {
+          const stockBase = Number(producto.stock) || 0;
+          const enCarrito = obtenerCantidadEnCarrito(producto.id);
+          const stockRestante = Math.max(0, stockBase - enCarrito);
+
+          return (
+            <div className="col-12 col-sm-6 col-lg-3" key={producto.id}>
+              <ProductCard
+                image={producto.image}
+                name={producto.name}
+                description={producto.description}
+                price={producto.price}
+                stock={stockRestante}
+                onAdd={() => agregarAlCarrito(producto)}
+              />
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }
+
+export default Productos;

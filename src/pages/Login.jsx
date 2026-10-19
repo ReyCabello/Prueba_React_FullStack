@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 import { FormField } from '../components/molecules/FormField'
 import Boton from '../components/atoms/Button'
 import './Login.css'
-import { useNavigate } from 'react-router-dom'
-import { iniciarSesion } from '../utils/usuariosDemo'
+import { useNavigate } from 'react-router-dom';
 
 const dominiosPermitidos = [
     '@duoc.cl',
@@ -52,13 +51,13 @@ function validarContrasena(contrasena) {
     return ''
 }
 
-export function Login() {
-    const navigate = useNavigate()
+export function Login({ onLogin }) {
     const [correo, setCorreo] = useState('')
     const [contrasena, setContrasena] = useState('')
     const [errores, setErrores] = useState({})
     const [mensaje, setMensaje] = useState('')
 
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
     event.preventDefault()
@@ -66,7 +65,22 @@ export function Login() {
     const nuevosErrores = {
         correo: validarCorreo(correo),
         contrasena: validarContrasena(contrasena),
-    }
+        }
+
+        setErrores(nuevosErrores)
+        setMensaje('')
+
+        if (nuevosErrores.correo || nuevosErrores.contrasena) {
+        return
+        }
+
+        if (correo === 'admin@gmail.com' && contrasena === 'admin123') { 
+            if (onLogin) onLogin(true);
+            navigate('/inventario');
+        } else {
+            if (onLogin) onLogin(false);
+            navigate('/');
+        }
 
     setErrores(nuevosErrores)
     setMensaje('')
@@ -171,6 +185,7 @@ export function Login() {
                     <Boton
                     texto="ENTRAR A LA AVENTURA"
                     tipo="submit"
+                    onClick={handleSubmit}
                     variante="dark"
                     />
                 </div>

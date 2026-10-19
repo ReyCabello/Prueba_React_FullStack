@@ -11,6 +11,7 @@ export function ProductCard({
   name,
   description,
   price,
+  stock,
   onAdd,
   className = ''
 }) {
@@ -50,10 +51,11 @@ export function ProductCard({
         />
 
         <Button
-          texto="Agregar"
+          texto={Number(stock) <= 0 ? "Agotado" : "Agregar"}
           onClick={onAdd}
           tipo="button"
-          variante="warning"
+          variante={Number(stock) <= 0 ? "secondary" : "warning"}
+          disabled={Number(stock) <= 0}
         />
       </Card>
 
