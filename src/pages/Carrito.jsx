@@ -16,17 +16,44 @@ export function Carrito() {
     localStorage.setItem('carrito', JSON.stringify(carrito));
   }, [carrito]);
 
-  const cambiarCantidad = (id, cambio) => {
-    setCarrito((carritoActual) =>
-      carritoActual
-        .map((item) =>
-          item.id === id
-            ? { ...item, cantidad: item.cantidad + cambio }
-            : item
-        )
-        .filter((item) => item.cantidad > 0)
+  
+const cambiarCantidad = (id, cambio) => {
+  if (cambio > 0) {
+    const inventarioGuardado = localStorage.getItem('cartas_inventario');
+    const inventario = inventarioGuardado
+      ? JSON.parse(inventarioGuardado)
+      : [];
+
+    const producto = inventario.find(
+      (item) => String(item.id) === String(id)
     );
-  };
+
+    const productoCarrito = carrito.find(
+      (item) => String(item.id) === String(id)
+    );
+
+    const stockDisponible = producto ? Number(producto.stock) || 0 : 0;
+    const cantidadActual = productoCarrito
+      ? Number(productoCarrito.cantidad) || 0
+      : 0;
+
+    if (cantidadActual + cambio > stockDisponible) {
+      alert(`No puedes agregar más unidades. Stock disponible: ${stockDisponible}.`);
+      return;
+    }
+  }
+
+  setCarrito((carritoActual) =>
+    carritoActual
+      .map((item) =>
+        String(item.id) === String(id)
+          ? { ...item, cantidad: Number(item.cantidad) + cambio }
+          : item
+      )
+      .filter((item) => item.cantidad > 0)
+  );
+};
+
 
   const eliminarProducto = (id) => {
     setCarrito((carritoActual) =>
@@ -37,6 +64,43 @@ export function Carrito() {
   const vaciarCarrito = () => {
     setCarrito([]);
   };
+
+
+
+  
+  const irAPagar = () => {
+    const inventarioGuardado = localStorage.getItem('cartas_inventario');
+
+    if (!inventarioGuardado) {
+      alert('No se pudo verificar el inventario.');
+      return;
+    }
+
+    let inventario;
+
+    try {
+      inventario = JSON.parse(inventarioGuardado);
+    } catch {
+      alert('Error al consultar el inventario.');
+      return;
+    }
+
+    for (const item of carrito) {
+      const producto = inventario.find(
+        (p) => String(p.id) === String(item.id)
+      );
+
+      const stockDisponible = producto ? Number(producto.stock) || 0 : 0;
+
+      if (!producto || Number(item.cantidad) > stockDisponible) {
+        alert(`No hay existencias suficientes de ${item.name}. Stock disponible: ${stockDisponible}.`);
+        return;
+      }
+    }
+
+    alert('¡Stock verificado! Tu pedido puede continuar al pago.');
+  };
+
 
   const totalItems = carrito.reduce(
     (total, item) => total + item.cantidad,
@@ -160,6 +224,15 @@ export function Carrito() {
               <h2 className="h5 mb-0">Total de la compra</h2>
               <PriceTag amount={totalPrice} />
             </div>
+          </div>
+          <div className="d-flex justify-content-end mt-3">
+            <button
+              type="button"
+              className="btn btn-success btn-lg"
+              onClick={irAPagar}
+            >
+              Ir a pagar
+            </button>
           </div>
         </>
       )}
