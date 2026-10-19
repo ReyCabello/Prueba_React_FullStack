@@ -7,6 +7,11 @@ import { Registro } from './pages/Registro'
 import { Productos } from './pages/Productos'
 import { Routes, Route } from 'react-router-dom'
 import { Carrito } from './pages/Carrito'
+import { Nosotros } from './pages/Nosotros'
+import { Noticias } from './pages/Noticias'
+import { Contacto } from './pages/Contacto'
+import { Inicio } from './pages/Inicio'
+
 
 function App() {
   return (
@@ -14,11 +19,15 @@ function App() {
       <Header />
 
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Inicio />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/productos" element={<Productos />} />
         <Route path="/carrito" element={<Carrito />} />
+        <Route path="/nosotros" element={<Nosotros />} />
+        <Route path="/noticias" element={<Noticias />} />
+        <Route path="/contacto" element={<Contacto />} />
+        
       </Routes>
 
       <Footer />
