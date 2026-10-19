@@ -63,7 +63,6 @@ export function ProductosDestacados() {
                                 description={producto.description}
                                 price={producto.price}
                                 stock={producto.stock}
-                                onAdd={() => agregarAlCarrito(producto)}
                             />
                         </div>
                     )
