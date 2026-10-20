@@ -1,4 +1,4 @@
-import products from '../../data/Products'
+import productsIniciales from '../../data/Products'
 import { ProductCard } from '../molecules/ProductCard'
 import '../../pages/Productos.css'
 import { useState, useEffect } from 'react'
