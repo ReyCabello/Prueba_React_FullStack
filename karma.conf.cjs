@@ -1,7 +1,6 @@
 module.exports = function (config) {
     config.set({
         frameworks: ['jasmine'],
-
         files: [
             'src/test/setupTests.js',
             'src/test/**/*.spec.jsx'
@@ -10,7 +9,6 @@ module.exports = function (config) {
             'src/test/setupTests.js': ['webpack'],
             'src/test/**/*.spec.jsx': ['webpack']
         },
-
         webpack: {
             mode: 'development',
             module: {
@@ -31,6 +29,10 @@ module.exports = function (config) {
                     {
                         test: /\.css$/,
                         use: ['style-loader', 'css-loader']
+                    },
+                    {
+                        test: /\.(png|jpe?g|gif|svg|webp)$/i,
+                        type: 'asset/inline'
                     }
                 ]
             },
@@ -38,18 +40,10 @@ module.exports = function (config) {
                 extensions: ['.js', '.jsx']
             }
         },
-
-        reporters: ['progress', 'kjhtml', 'coverage'],
-
-        coverageReporter: {
-            type: 'html',
-            dir: 'coverage/'
-        },
-
+        reporters: ['progress', 'kjhtml'],
         browsers: ['ChromeHeadless'],
         singleRun: true,
         restartOnFileChange: true,
-
         plugins: [
             'karma-jasmine',
             'karma-webpack',
@@ -57,5 +51,5 @@ module.exports = function (config) {
             'karma-coverage',
             'karma-jasmine-html-reporter'
         ]
-    })
-}
+    });
+};

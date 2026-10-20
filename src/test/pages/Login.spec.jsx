@@ -1,6 +1,6 @@
 
 import { render, screen, fireEvent } from '@testing-library/react'
-import { Login } from '../pages/Login'
+import { Login } from '../../pages/Login'
 import { MemoryRouter } from 'react-router-dom'
 
 describe('Pruebas unitarias de Login', () => {

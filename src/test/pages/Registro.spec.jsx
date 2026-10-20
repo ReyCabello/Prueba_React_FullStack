@@ -1,6 +1,5 @@
-
 import { render, screen, fireEvent } from '@testing-library/react'
-import { Registro } from '../pages/Registro'
+import { Registro } from '../../pages/Registro'
 import { MemoryRouter } from 'react-router-dom'
 
 describe('Pruebas unitarias de Registro', () => {
